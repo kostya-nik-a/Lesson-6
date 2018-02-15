@@ -54,8 +54,7 @@ print_r($tests);
 
 
                 <br>
-                <?php 
-                $i++;                  
+                <?php                   
                 }
                 ?>
                 <label> Введите свое имя и фамилию <input  name="user_name" type="text" value=""></label><br> 
