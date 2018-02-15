@@ -28,17 +28,6 @@ if (isset($file['name']) && !empty($file['name']))
     			exit();
     		  }
 
-          $contents = file_get_contents($_FILES['send_files']['tmp_name']);
-          $tests = json_decode($contents, true);
-
-          if (array_key_exists('title', $tests) == 0 || 
-              array_key_exists('question', $value) == 0 || 
-              array_key_exists('answer', $value) == 0 || 
-              array_key_exists('correct-answer', $value) == 0) {
-              echo "Неверная структура json файла - не корректные или не существующие ключи <a href='admin.php'> Назад </a> ";
-              exit();
-          } 
-
     	  move_uploaded_file($file['tmp_name'], $testDir.DIRECTORY_SEPARATOR.$file['name']);
       	$message = 'Файл успешно загружен';
 
