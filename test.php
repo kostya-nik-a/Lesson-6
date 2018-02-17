@@ -12,6 +12,23 @@ $contents = file_get_contents(__DIR__ . $testDir.DIRECTORY_SEPARATOR.$test);
 $tests = json_decode($contents, true);
 echo "<pre>";
 print_r($tests);
+
+$userAnswers = [];
+$trueAnswers = [];
+$trueCount = 0;
+$falseCount = 0;
+$userAnswers = $_POST['answer$i'];
+
+foreach ($tests as $tkey => $test) {
+    for ($i = 0; $i < count($test['answers']); $i++) {
+        $trueAnswer[] = $test['correct-answer'];
+        $userAnswers [] = $_POST['answer$i'];
+    }
+}
+print_r($trueAnswer);
+print_r($userAnswers);
+
+
 ?>
 
 <!DOCTYPE html>
