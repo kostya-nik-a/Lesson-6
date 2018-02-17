@@ -30,7 +30,7 @@ print_r($tests);
                 ?>    
                 <h2><?php echo $test['question']; ?></h2>                               
                 <?php for ($i = 0; $i < count($test['answers']); $i++) { ?>
-                <input name="answer<?=$i+1?>" type="radio" value="<?php echo $test['answers'][$i]; ?>"> 
+                <input name="<?php 'answer'.$i ?>" type="radio" value="<?php echo $test['answers'][$i]; ?>"> 
                 <?php echo $test['answers'][$i] ?><br>
                 <?php  
                       }                 
