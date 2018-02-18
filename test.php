@@ -2,68 +2,36 @@
 $test_number = ($_GET['test_number']);
 $testDir = "./tests/";
 $tests_list = scandir($testDir);
-$numFiles=count(scandir($testDir))-1;
 if ($test_number < 1 || !ctype_digit($test_number) || $test_number > count($tests_list) - 2) {
    echo "Такого теста не существует. Выберите существующий номер теста на <a href='list.php'> предыдущей странице </a>";
    exit();
 }
+
 $test = $tests_list[$test_number+1];
 $contents = file_get_contents(__DIR__ . $testDir.DIRECTORY_SEPARATOR.$test);
 $tests = json_decode($contents, true);
 echo "<pre>";
-//print_r($tests);
-print_r($_POST);
 
-
-$userAnswers = [];
-$trueAnswers = [];
-$trueCount = 0;
-$falseCount = 0;
-
+$trueAnswer = 0;
+$falseAnswer = 0;
+$noAnswer = 0;
 $i = 0;
-$x = 0;
-foreach ($tests as $tkey => $test) {
-    $trueAnswer['answerUser'.$i] = $test['correct-answer'];
-    $i++;
-        foreach ($_POST as $ukey => $Answers) {
-            $userAnswers['answerUser'.$x] = $Answers;
-            $x++;
-}
-}
-print_r($trueAnswer);
-print_r($userAnswers);
+$userAnswers = [];
+$mark; 
 
-
-    /*if (!in_array("answerUser$i", $userAnswers) || $userAnswers[$zkey] > count($tests['correct-answer']) ) 
-    {  
-        echo "Вы ответили не на все вопросы";   
-        //exit(); 
+foreach ($tests as $userAnswers) {
+    if (empty($_POST)) {   
     } 
-
-    elseif ($_POST["answerUser$i"] == $userAnswers['correct-answer']) 
-    {
-            $trueCount++;            
-    } 
-    else {
-            $falseCount++;            
+    elseif (empty($_POST["answerUser$i"])) {
+            $noAnswer++;            
+    } elseif ($_POST["answerUser$i"] == $userAnswers["correct-answer"]) {
+            $trueAnswer++;            
+    } else {
+            $falseAnswer++;            
     }
-            $i++; */
-
-
-
-/*$x=0;
-if (empty($userAnswers[$x])) {
-    $falseCount++;
-    echo "Вы ответили не на все вопросы";
-    exit();
+            $i++; 
 }
-    elseif ($userAnswers[$x] == $trueAnswer[$x+1]) {
-        $trueCount++;
-    }*/
 
-echo "Количество правильных ответов:".$trueCount;
-echo "<br>";
-echo "Количество НЕ правильных ответов:".$falseCount;
 
 ?>
 
@@ -76,31 +44,37 @@ echo "Количество НЕ правильных ответов:".$falseCoun
     <body>
         <h1>Вы проходите тест: <?php echo '<i style="color: blue;">'.$tests['title'].'</i>' ?> </h1>
         <form action="" method="POST">
-            <div style="border: 1px solid red; text-align: left;">
+            <div style="text-align: left;">
                 <?php 
                     $i = 0;
-                    foreach ($tests as $tkey => $test) {
+                    foreach ($tests as $userAnswers) {
                 ?>
                 <fieldset>
                     <legend>
-                        <h2><?php echo $test['question'] ?></h2>
+                        <h2><?php echo $userAnswers['question'] ?></h2>
                     </legend>
-                <?php
-                    for ($i = 0; $i < count($test['answers']); $i++) {
-                ?>
+
                 <label>
-                    <input name="<?php echo 'answerUser'.$i ?>" type="radio" value="<?php echo $test['answers'][$i]; ?>"><?php echo $test['answers'][$i]; ?>
+                    <input name="<?php echo 'answerUser'.$i ?>" type="radio" value="<?php echo $userAnswers['answer1']; ?>"><?php echo $userAnswers['answer1']; ?>
+                    <input name="<?php echo 'answerUser'.$i ?>" type="radio" value="<?php echo $userAnswers['answer2']; ?>"><?php echo $userAnswers['answer2']; ?>
+                    <input name="<?php echo 'answerUser'.$i ?>" type="radio" value="<?php echo $userAnswers['answer3']; ?>"><?php echo $userAnswers['answer3']; ?>
+                    <input name="<?php echo 'answerUser'.$i ?>" type="radio" value="<?php echo $userAnswers['answer4']; ?>"><?php echo $userAnswers['answer4']; ?>
                 </label>
-                <?php
-                    }
-                ?>
                 </fieldset>
                 <?php
+                $i++;
                 }
                 ?>
-
-                <label> Введите свое имя и фамилию <input  name="user_name" type="text" value=""></label><br> 
                 <button type="submit">Результат</button>   
+
+                  <?php 
+                if (!empty($_POST)) {
+                echo  
+                "<p> Количество правильных ответов: " . $trueAnswer . "</p>" .
+                "<p> Количество НЕ правильных ответов: " . $falseAnswer . "</p>" .
+                "<p> Нет ответов на " .$noAnswer. " вопросов </p>";
+                }  
+                ?>
                                        
             </div>
         </form>
