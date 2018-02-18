@@ -17,7 +17,6 @@ $falseAnswer = 0;
 $noAnswer = 0;
 $i = 0;
 $userAnswers = [];
-$mark; 
 
 foreach ($tests as $userAnswers) {
     if (empty($_POST)) {   
@@ -31,7 +30,6 @@ foreach ($tests as $userAnswers) {
     }
             $i++; 
 }
-
 
 ?>
 
