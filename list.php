@@ -1,5 +1,4 @@
 <?php
-
 $testDir = __DIR__."./tests";
 $tests_list = scandir($testDir);
 $numFiles=count(scandir($testDir))-1;
@@ -24,7 +23,6 @@ $numFiles=count(scandir($testDir))-1;
         $tests = json_decode($contents, true);
         echo '<strong>'.($i-1).'. '.$tests['title'].'</strong><br>';
       } while ($i++<$numFiles);
-
     ?>
     <form enctype="multipart/form-data" action="test.php" method="get"><hr> Введите номер теста:   
         <input type="text" name="test_number"><br/>                

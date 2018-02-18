@@ -1,22 +1,16 @@
-
 <?php
-
 error_reporting(E_ALL);
 ini_set("display_errors", 1);
 //echo "<pre>";
 //var_dump($_FILES);
-
 if (!file_exists(__DIR__ . "/tests")) {
     mkdir(__DIR__ . "/tests");
 }
-
 $testDir = __DIR__."/tests";
 $message = '';
-
 if (isset($_FILES['send_files'])) {
     $file = $_FILES['send_files'];
 }
-
 if (isset($file['name']) && !empty($file['name'])) 
 {
   if ($file['error'] == UPLOAD_ERR_OK)
@@ -27,19 +21,14 @@ if (isset($file['name']) && !empty($file['name']))
     			echo "Ошибка загрузки файла. Необходимо загрузить только файлы с расширением json. <a href='admin.php'> Назад </a> ";
     			exit();
     		  }
-
     	  move_uploaded_file($file['tmp_name'], $testDir.DIRECTORY_SEPARATOR.$file['name']);
       	$message = 'Файл успешно загружен';
-
       }
       else {
       	$message = 'Файл не загружен: ';
       	echo $message.$file['error'];
-
       }
-
 }
-
 ?>
 
 <!DOCTYPE HTML>
@@ -54,7 +43,6 @@ if (isset($file['name']) && !empty($file['name']))
   	width: 50%;
   	}
 legend { font-weight: 600;}
-
 </style>
 <body>
 <div>
@@ -75,11 +63,9 @@ legend { font-weight: 600;}
             		$filesDir = scandir($testDir);
                 $numFiles=count(scandir($testDir))-2;
                 $filesDirs = array_slice($filesDir, 2);
-
             		foreach ($filesDirs as $fd)
         				{
         					echo '<li>'.$fd.'</li>';
-
                 }
         				
         		?>
