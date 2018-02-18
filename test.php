@@ -10,10 +10,6 @@ if ($test_number < 1 || !ctype_digit($test_number) || $test_number > count($test
 $test = $tests_list[$test_number+1];
 $contents = file_get_contents(__DIR__ . $testDir.DIRECTORY_SEPARATOR.$test);
 $tests = json_decode($contents, true);
-<<<<<<< HEAD
-=======
-echo "<pre>";
->>>>>>> 2354907cc57503295b582a58e9d86ba2f2007d5e
 
 $trueAnswer = 0;
 $falseAnswer = 0;
@@ -33,10 +29,6 @@ foreach ($tests as $userAnswers) {
     }
             $i++; 
 }
-<<<<<<< HEAD
-
-=======
->>>>>>> 2354907cc57503295b582a58e9d86ba2f2007d5e
 
 ?>
 
