@@ -15,7 +15,6 @@ $trueAnswer = 0;
 $falseAnswer = 0;
 $noAnswer = 0;
 $i = 0;
-$userAnswers = [];
 
 foreach ($tests as $qkey => $questions) {
     if (is_array($questions)) {
