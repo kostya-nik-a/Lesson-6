@@ -1,6 +1,5 @@
 <?php
-error_reporting(E_ALL);
-ini_set("display_errors", 1);
+
 //echo "<pre>";
 //var_dump($_FILES);
 if (!file_exists(__DIR__ . "/tests")) {
@@ -21,6 +20,30 @@ if (isset($file['name']) && !empty($file['name']))
     			echo "Ошибка загрузки файла. Необходимо загрузить только файлы с расширением json. <a href='admin.php'> Назад </a> ";
     			exit();
     		  }
+        elseif ($fileType = "json") {
+          foreach ($tests as $qkey => $questions) {
+            if (is_array($questions)) {
+              foreach ($questions as $answers) {
+              if (array_key_exists('question', $answers) == 0 || array_key_exists('answers', $answers) == 0) {
+                  echo "Неверная структура json - не те ключи";
+                  //unlink($newType);
+                  exit();
+              } 
+            }}
+        else { 
+          foreach ($value as $answer) {
+              if (gettype($answer) == "array") {
+                  echo "Неверная структура json - значения не могут быть массивами";
+                  //unlink($newType);
+                  exit();
+              }
+          }    
+        }    
+        }
+
+
+
+        }
     	  move_uploaded_file($file['tmp_name'], $testDir.DIRECTORY_SEPARATOR.$file['name']);
       	$message = 'Файл успешно загружен';
       }
