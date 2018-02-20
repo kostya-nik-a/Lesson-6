@@ -48,7 +48,8 @@ foreach ($tests as $qkey => $questions) {
                     <?php 
                         foreach ($tests as $qkey => $questions) {
                             if (is_array($questions)) {
-                                foreach ($questions as $answers) {
+                               $x = 0;
+                               foreach ($questions as $answers) {
                     ?>
                     <fieldset>
                     <legend>
@@ -65,7 +66,8 @@ foreach ($tests as $qkey => $questions) {
                     </label>
                 </fieldset>
                 <?php
-                        }
+                       $x++; 
+                       }
                     }
                 }
 
