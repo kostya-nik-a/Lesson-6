@@ -48,8 +48,13 @@ foreach ($tests as $qkey => $questions) {
                     <?php 
                         foreach ($tests as $qkey => $questions) {
                             if (is_array($questions)) {
+<<<<<<< HEAD
                                 $x = 0;
                                 foreach ($questions as $answers) {
+=======
+                               $x = 0;
+                               foreach ($questions as $answers) {
+>>>>>>> 007607ad3e8593f8bd724b50f7db71fb4fe8d7e8
                     ?>
                     <fieldset>
                     <legend>
@@ -67,7 +72,12 @@ foreach ($tests as $qkey => $questions) {
                     </label>
                 </fieldset>
                 <?php
+<<<<<<< HEAD
                         $x++;}  
+=======
+                       $x++; 
+                       }
+>>>>>>> 007607ad3e8593f8bd724b50f7db71fb4fe8d7e8
                     }
                 }
 
