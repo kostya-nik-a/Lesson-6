@@ -1,5 +1,5 @@
 <?php
-$testDir = __DIR__."./tests";
+$testDir = __DIR__."/tests";
 $tests_list = scandir($testDir);
 $numFiles=count(scandir($testDir))-1;
 //echo "<pre>";

@@ -12,39 +12,24 @@ if (isset($_FILES['send_files'])) {
 }
 if (isset($file['name']) && !empty($file['name'])) 
 {
-  if ($file['error'] == UPLOAD_ERR_OK)
-      {
-      	$info = new SplFileInfo($file['name']);
-        $fileType = $info->getExtension();
-        	if ($fileType != "json") {
-    			echo "Ошибка загрузки файла. Необходимо загрузить только файлы с расширением json. <a href='admin.php'> Назад </a> ";
-    			exit();
-    		  }
-        elseif ($fileType = "json") {
-          foreach ($tests as $qkey => $questions) {
-            if (is_array($questions)) {
-              foreach ($questions as $answers) {
-              if (array_key_exists('question', $answers) == 0 || array_key_exists('answers', $answers) == 0) {
-                  echo "Неверная структура json - не те ключи";
-                  //unlink($newType);
-                  exit();
-              } 
-            }}
-        else { 
-          foreach ($value as $answer) {
-              if (gettype($answer) == "array") {
-                  echo "Неверная структура json - значения не могут быть массивами";
-                  //unlink($newType);
-                  exit();
-              }
-          }    
-        }    
-        }
+    if ($file['error'] == UPLOAD_ERR_OK)
+        {
+    	    move_uploaded_file($file['tmp_name'], $testDir.DIRECTORY_SEPARATOR.$file['name']);
 
-
-
-        }
-    	  move_uploaded_file($file['tmp_name'], $testDir.DIRECTORY_SEPARATOR.$file['name']);
+            $info = new SplFileInfo($file['name']);
+            $fileType = $info->getExtension();
+            $contents = file_get_contents($testDir.DIRECTORY_SEPARATOR.$file['name']);
+            $tests = json_decode($contents, true);
+            if ($fileType != "json") {
+                echo "Ошибка загрузки файла. Необходимо загрузить только файлы с расширением json. <br> <a href='admin.php'> Назад </a> ";
+                unlink($testDir.DIRECTORY_SEPARATOR.$file['name']);
+                exit();
+            }
+            elseif ($tests == null) {
+                echo "Неверная структура json <br> <a href='admin.php'> Назад </a>";
+                unlink($testDir.DIRECTORY_SEPARATOR.$file['name']);
+                exit();
+            }
       	$message = 'Файл успешно загружен';
       }
       else {
@@ -84,12 +69,12 @@ legend { font-weight: 600;}
         <ul>
             	<?php 
             		$filesDir = scandir($testDir);
-                $numFiles=count(scandir($testDir))-2;
-                $filesDirs = array_slice($filesDir, 2);
+                    $numFiles=count(scandir($testDir))-2;
+                    $filesDirs = array_slice($filesDir, 2);
             		foreach ($filesDirs as $fd)
         				{
         					echo '<li>'.$fd.'</li>';
-                }
+                        }
         				
         		?>
         </ul>

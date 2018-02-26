@@ -1,0 +1,17 @@
+﻿{
+  "testName": "Пример теста",
+  "question": {
+    "question1": {
+      "question": "Земля круглая?",
+      "type": "single",
+      "answers": [
+        "да",
+        "нет",
+        "плоская"
+      ],
+      "rightAnswers": [
+        "да"
+      ]
+    }
+  }
+}

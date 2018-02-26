@@ -1,6 +1,6 @@
 <?php
 $test_number = ($_GET['test_number']);
-$testDir = "./tests/";
+$testDir = __DIR__ ."/tests";
 $tests_list = scandir($testDir);
 if ($test_number < 1 || !ctype_digit($test_number) || $test_number > count($tests_list) - 2) {
    echo "Такого теста не существует. Выберите существующий номер теста на <a href='list.php'> предыдущей странице </a>";
@@ -8,14 +8,13 @@ if ($test_number < 1 || !ctype_digit($test_number) || $test_number > count($test
 }
 
 $test = $tests_list[$test_number+1];
-$contents = file_get_contents(__DIR__ . $testDir.DIRECTORY_SEPARATOR.$test);
+$contents = file_get_contents($testDir.DIRECTORY_SEPARATOR.$test);
 $tests = json_decode($contents, true);
 
 $trueAnswer = 0;
 $falseAnswer = 0;
 $noAnswer = 0;
 $i = 0;
-$userAnswers = [];
 
 foreach ($tests as $qkey => $questions) {
     if (is_array($questions)) {
@@ -49,6 +48,7 @@ foreach ($tests as $qkey => $questions) {
                     <?php 
                         foreach ($tests as $qkey => $questions) {
                             if (is_array($questions)) {
+                                $x = 0;
                                 foreach ($questions as $answers) {
                     ?>
                     <fieldset>
@@ -57,16 +57,17 @@ foreach ($tests as $qkey => $questions) {
                     </legend>
                     <label>
                         <?php 
-                            for ($i=0; $i < count($answers['answers']);$i++) { 
+                        //$x = 0;
+                            for ($i=0; $i < count($answers['answers']); $i++) { 
                         ?>
-                    <input name="<?php echo 'answerUser'.$i ?>" type="radio" value="<?php echo $answers['answers'][$i]; ?>"><?php echo $answers['answers'][$i]; ?>
+                    <input name="<?php echo 'answerUser'.$x ?>" type="radio" value="<?php echo $answers['answers'][$i]; ?>"><?php echo $answers['answers'][$i]; ?>
                     <?php 
-                        }
+                       }  
                     ?>
                     </label>
                 </fieldset>
                 <?php
-                        }
+                        $x++;}  
                     }
                 }
 
