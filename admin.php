@@ -68,13 +68,13 @@ legend { font-weight: 600;}
         <p>Json-файлы с тестами, загруженные на сервер:</p>
         <ul>
             	<?php 
-            		$filesDir = scandir($testDir);
+            	    $filesDir = scandir($testDir);
                     $numFiles=count(scandir($testDir))-2;
                     $filesDirs = array_slice($filesDir, 2);
             		foreach ($filesDirs as $fd)
-        				{
-        					echo '<li>'.$fd.'</li>';
-                        }
+        		    {
+        			echo '<li>'.$fd.'</li>';
+                            }
         				
         		?>
         </ul>
